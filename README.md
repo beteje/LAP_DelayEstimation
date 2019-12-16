@@ -17,5 +17,5 @@ The code here is based on the 2D image registration code here: [https://sites.go
 
 
 ## References
- ICASSP_2018 [Time-Varying Delay Estimation Using Common Local All-Pass Filters with Application to Surface Electromyography](https://beteje.github.io/assets/pdf/2018_ICASSP.pdf)
+ ICASSP_2018 [Time-Varying Delay Estimation Using Common Local All-Pass Filters with Application to Surface Electromyography](https://beteje.github.io/assets/pdf/2018_ICASSP.pdf)   
  APSIPA_2019 [Fast & Efficient Delay Estimation Using Local All-Pass & Kalman Filters](https://beteje.github.io/assets/pdf/2019_APSIPA.pdf)
