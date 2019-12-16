@@ -26,7 +26,7 @@ bwf(:,find(f==-lpf):find(f==lpf)) = 1;% Create brick wall filter with desired cu
 
 % Set type of muscle fibre conduction velocity
 if type==1          % linear 
-    d = 2/delta_e + 1.5/delta_e*linspace(0,1,N);
+    d = 2/(Fs*delta_e) + 1.5/(Fs*delta_e)*linspace(0,1,N);
     MFCV = 1./d;
 elseif type==2      % sinusoidal
     MFCV = 4 + 2*sin(2*pi*0.2*(1:(N))/Fs);
@@ -36,7 +36,7 @@ else                % constant
     MFCV = 4;
 end
 
-theta = delta_e./MFCV;           % Time delay
+theta = Fs*delta_e./MFCV;           % Time delay
 
 P = fftshift((1*fh^4*f.^2)./((f.^2+fl^2).*(f.^2+fh^2).^2)); % Desired PSD 
 

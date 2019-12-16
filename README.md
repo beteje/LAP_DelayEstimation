@@ -10,9 +10,12 @@ The code here is based on the 2D image registration code here: [https://sites.go
 
   Note that for each scale this function estimates the time-varying delay for the whole signal, Gaussian smooths the estimate then aligns the signals using _imshift_ and repeats for the next scale.
 
-- _Delay_Est_ allows comparison of the two using the data generated in _Simple_EMG_Model_.
-   - The _Simple_EMG_Model_ generates multiple channels of data with a choice of different conduction velocities (and hence delays).
+- _Delay_Est_ allows comparison of the two using the data generated in _Simple_EMG_Model_
+   - The _Simple_EMG_Model_ generates multiple channels of data with a choice of different conduction velocities (and hence delays)
 
----
+- _/LAP_Kalman_ contains the code for the LAP + Kalman Filter described in APSIPA_2019
+
+
 ## References
- [Time-Varying Delay Estimation Using Common Local All-Pass Filters with Application to Surface Electromyography](https://beteje.github.io/assets/pdf/2018_ICASSP.pdf), ICASSP 2018
+ ICASSP_2018 [Time-Varying Delay Estimation Using Common Local All-Pass Filters with Application to Surface Electromyography](https://beteje.github.io/assets/pdf/2018_ICASSP.pdf)
+ APSIPA_2019 [Fast & Efficient Delay Estimation Using Local All-Pass & Kalman Filters](https://beteje.github.io/assets/pdf/2019_APSIPA.pdf)
