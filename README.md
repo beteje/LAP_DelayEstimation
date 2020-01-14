@@ -10,8 +10,8 @@ The code here is based on the 2D image registration code here: [https://sites.go
 
   Note that for each scale this function estimates the time-varying delay for the whole signal, Gaussian smooths the estimate then aligns the signals using _imshift_ and repeats for the next scale.
 
-- _Delay_Est_ allows comparison of the two using the data generated in _Simple_EMG_Model_
-   - The _Simple_EMG_Model_ generates multiple channels of data with a choice of different conduction velocities (and hence delays)
+- _Delay_Est_ allows comparison of the two using the data generated in _Signal_Generation_
+   - The _Signal_Generation_ generates multiple channels of data with a choice of different velocities or delays
 
 - _/LAP_Kalman_ contains the code for the LAP + Kalman Filter described in APSIPA_2019
 

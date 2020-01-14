@@ -1,4 +1,4 @@
-function [theta,d_est,d_est_Kalman,d_est_Kalman_fus,MAE] = Delay_Est_Kalman(T,SNR,Fs,delta_e,cv_type)
+function [theta,d_est,d_est_Kalman,d_est_Kalman_fus,MAE] = Delay_Est_Kalman(T,SNR,Fs,delta_e,vtype)
 %% Estimates the delay between channels of data using both the LAP & Multiscale LAP
 % Data is generated using a simple model which creates data with known spectrum
 %
@@ -6,7 +6,7 @@ function [theta,d_est,d_est_Kalman,d_est_Kalman_fus,MAE] = Delay_Est_Kalman(T,SN
 %           SNR                 - signal to noise ratio (dB)
 %           Fs                  - sampling rate
 %           delta_e             - distance between electrodes (mm)
-%           cv_type             - type of conduction velocity 
+%           vtype               - type of velocity 
 %                                   1 = linear, 2 = sinusoidal, 3 = sigmoidal, otherwise constant
 %
 % outputs:  theta               - true delay signal
@@ -24,7 +24,7 @@ t = 0:dt:T;     % Time points
 N_Sig = 2;      % Number of signals
 
 % Generate Data
-[x,theta] = Simple_EMG_Model(length(t),N_Sig,SNR,Fs,delta_e,cv_type);
+[x,theta] = Signal_Generation(length(t),N_Sig,SNR,Fs,vtype,4,0,0,1,delta_e,1,1,500); 
 
 % Estimate the delays using LAP+Kalman
 [d_est,d_est_Kalman,d_est_Kalman_fus] = LAP_Kalman(x,K,q,r,dt);
