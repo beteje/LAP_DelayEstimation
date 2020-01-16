@@ -11,9 +11,10 @@ function [x,theta] = Signal_Generation(N,N_Sig,SNR,Fs,varargin)
 % optional inputs:
 %           type        - type of delay/velocity
 %                           1 = linear (delay), 2 = sinusoidal, 3 = sigmoidal, 
-%                           4 = smoothly varying bandlimited, 
+%                           4 = smoothly varying bandlimited, 5 = piecewise constant,
 %                           otherwise constant (default)
-%           d1          - the constant part of the delay
+%           d1          - the constant part of the delay 
+%                           for piecewise constant takes multiple values
 %                           default = 4
 %           alpha       - Defines the bandwidth of the signal as B = Fs*alpha
 %                           default = 0.5
@@ -37,7 +38,7 @@ narginchk(4,13);
 
 % Set default parameters
 defaultType = 0;
-defaultD1 = 4;
+defaultD1 = [4 5.5];
 defaultAlpha = 0.5;
 defaultPm = 0;
 defaultVelocity = 0;
@@ -63,23 +64,32 @@ parse(p,varargin{:});
 x = zeros(N_Sig,N);                     % Initialize signals   
 f = linspace(-Fs/2,Fs/2,N);             % Define frequency points
 
-% % lpf = 500;                          % Frequency to low pass filter noisy data at
-
 % Set type of delay/velocity
 if p.Results.type==1            % linear 
-    d = p.Results.d1 + 2*linspace(0,1,N);
+    d = p.Results.d1(1) + 2*linspace(0,1,N);
 elseif p.Results.type==2        % sinusoidal
-    d = p.Results.d1 + 2*sin(2*pi*0.2*(1:(N))/Fs);
+    d = p.Results.d1(1) + 2*sin(2*pi*0.2*(1:(N))/Fs);
 elseif p.Results.type==3        % sigmoidal
-    d = p.Results.d1 + 1./(1 + exp(-8/5.*((0:(N-1))./Fs - (N-1)/Fs./4)));
+    d = p.Results.d1(1) + 1./(1 + exp(-8/5.*((0:(N-1))./Fs - (N-1)/Fs./4)));
 elseif p.Results.type==4        % smoothly varying bandlimited   
     d = randn(1,N);
     freq = linspace(-Fs/2,Fs/2,N);
     Filter = ifftshift(double(logical(abs(freq)<=10)));
     d = real(ifft(fft(d).*Filter));
-    d = d./(max(abs(d))).*6;    
+    d = d./(max(abs(d))).*6;   
+elseif p.Results.type==5        % piecewise constant
+    NumCon = length(p.Results.d1);
+    N1 = floor(N/NumCon);
+    d = [];
+    for i=1:NumCon
+        if i==NumCon
+            d = [d p.Results.d1(i)*ones(1,N-(i-1)*N1)];
+        else
+            d = [d p.Results.d1(i)*ones(1,N1)];
+        end
+    end
 else                            % constant
-    d = p.Results.d1.*ones(1,N);
+    d = p.Results.d1(1).*ones(1,N);
 end
 
 % If calculating velocity convert d into delay
