@@ -1,4 +1,4 @@
-function [theta,d_est,d_est_multi,theta_cohF,MAE] = Delay_Est(N_Sig,T,SNR,Fs,delta_e,cv_type)
+function [theta,d_est,d_est_multi,theta_cohF,MAE] = Delay_Est(N_Sig,T,SNR,Fs,delta_e,vtype)
 %% Estimates the delay between channels of data using both the LAP & Multiscale LAP
 % Data is generated using a simple model which creates data with known spectrum
 % CohF function is also included as a comparison
@@ -8,7 +8,7 @@ function [theta,d_est,d_est_multi,theta_cohF,MAE] = Delay_Est(N_Sig,T,SNR,Fs,del
 %           SNR         - signal to noise ratio (dB)
 %           Fs          - sampling rate
 %           delta_e     - distance between electrodes (mm)
-%           cv_type     - type of conduction velocity 
+%           vtype       - type of velocity 
 %                           1 = linear, 2 = sinusoidal, 3 = sigmoidal, otherwise constant
 %
 % outputs:  theta       - true delay signal
@@ -19,8 +19,7 @@ function [theta,d_est,d_est_multi,theta_cohF,MAE] = Delay_Est(N_Sig,T,SNR,Fs,del
 %% Generate Data
 t = 0:1/Fs:T;	% Time points
 % Generate sample channels
-[x,theta] = Simple_EMG_Model(length(t),N_Sig,SNR,Fs,delta_e,cv_type); 
-
+[x,theta] = Signal_Generation(length(t),N_Sig,SNR,Fs,vtype,4,0,0,1,delta_e,1,1,500); 
 %% LAP delay estimation
 % Half length of filter basis
 K = 11;         % Minimum value to estimate a delay tau is K = 2*tau;

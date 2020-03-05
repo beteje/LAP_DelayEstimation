@@ -1,4 +1,4 @@
-function [d_est] = LAP_1D(x1,x2,basis,K1,W)
+function [d_est] = LAP_1D(x1,x2,basis,K1,W,Raw)
 %% Implementation of the Local All-Pass Filter (LAP) algorithm for delay estimation in 1D signals 
 % Given input signals I1 and I2, and basis (the set of filters), the function calculates the delay, possibly time-varying, between the two signals.
 %
@@ -10,6 +10,7 @@ function [d_est] = LAP_1D(x1,x2,basis,K1,W)
 %           K1      - size of filter basis (Default = calculated from filter basis)
 %           W       - size of the local window used in the algorithm.
 %                       (Default = 2*ceil(K1) + 1)
+%           Raw     - control variable to decide whether to keep raw estimate (1) or not (0)
 %
 % output:   d_est   - estimate of the time delay per sample
 
@@ -20,14 +21,13 @@ function [d_est] = LAP_1D(x1,x2,basis,K1,W)
 if nargin < 4
     K1  = (M-1)/2;
     W   = 2.*ceil(K1)+1;
+    Raw = 0;
 elseif nargin < 5
     W   = 2.*ceil(K1)+1;
+    Raw = 0;
+elseif nargin < 6
+    Raw = 0;
 end
-
-% Set control variable to decide whether to keep raw estimate (1) or not (0)
-% Raw = 1;    % Keeps delay estimates as they are
-Raw = 0;    % Replaces estimates that are larger than the filter & on the
-%             % boundary (likely to be erroneous) with nan
 
 % Check if basis filters are centered
 K0  = 2*ceil(K1)+1;
