@@ -10,4 +10,5 @@ Using an all-pass filter we estimate a per sample time delay between two signals
 
 ## References
  Sun1999 [Adaptive Time Delay Estimation with Allpass Constraints, Sun & Douglas, Asilomar 1999](https://doi.org/10.1109/acssc.1999.831839)
+ 
  So1994 [A New Algorithm for Explicit Adaptation of Time Delay, So, Ching & Chan, IEEE TSP 1994](https://doi.org/10.1109/78.298289)
