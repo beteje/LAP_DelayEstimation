@@ -3,7 +3,7 @@
 
 Using an all-pass filter we estimate the time delay between two or more signals. The local all-pass (LAP) filter framework allows estimation of time-varying delays by using a short window to estimate a per sample delay.
 
-The code here is based on the 2D image registration code here: [https://sites.google.com/site/cwsgilliam/LAP](https://chrisgilliam.github.io/projects/LAP_ImageRegistration/)
+The code here is based on the 2D image registration code here: [https://chrisgilliam.github.io/projects/LAP_ImageRegistration/](https://chrisgilliam.github.io/projects/LAP_ImageRegistration/)
 
 - _LAP_1D_ estimates a single (time-varying) delay between two or more channels using a LAP filter
 - _MultiScale_LAP_ allows the use of multiple LAP filters of different sizes in order to give a more accurate estimate
